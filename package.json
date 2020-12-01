@@ -47,5 +47,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ribas858/IHC_App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ribas858/IHC_App/issues"
+  },
+  "homepage": "https://github.com/ribas858/IHC_App#readme"
 }
