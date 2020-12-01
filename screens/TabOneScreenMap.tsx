@@ -8,6 +8,7 @@ import MapView, { Marker } from 'react-native-maps';
 export default class TabOneScreen extends React.Component {
   
   state = {
+    region: null,
     places: [
       {
         id: 1,
@@ -52,10 +53,31 @@ export default class TabOneScreen extends React.Component {
     this.state.places[0].mark.showCallout();
   }
 
-  
+  async componentDidMount(){
+    navigator.geolocation.getCurrentPosition(
+      ({coords: {latitude, longitude}}) => {
+        this.setState({
+          region: {
+            latitude,
+            longitude,
+            longitudeDelta: 0.099,
+            latitudeDelta: 0.077,
+          }
+        });
+      },
+      () => {},
+      {
+        timeout: 2000,
+        enableHighAccuracy: true,
+        maximumAge: 1000,
+      }
+    )
+
+  }
 
   render() {
-    const { latitude, longitude } = this.state.places[0];
+    const { } = this.state.places[0];
+    const { region } = this.state;
     
     
 
@@ -64,14 +86,11 @@ export default class TabOneScreen extends React.Component {
       <View style={styles.container}>
         <MapView
             ref={ map => this.mapView = map}
-            initialRegion={{
-            latitude,
-            longitude,
-            longitudeDelta: 0.099,
-            latitudeDelta: 0.077, 
-            }}
+            region={region}
             style={styles.mapView}
             onMapReady={this._mapReady}
+            showsUserLocation
+            loadingEnabled
             
           >
           
