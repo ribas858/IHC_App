@@ -63,8 +63,8 @@ export default class TabOneScreen extends React.Component {
           region: {
             latitude,
             longitude,
-            longitudeDelta: 0.099,
-            latitudeDelta: 0.077,
+            longitudeDelta: 0.0199,
+            latitudeDelta: 0.0187,
           }
         });
       },
