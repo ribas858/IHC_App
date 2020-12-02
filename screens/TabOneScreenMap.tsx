@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { Image, StyleSheet, Dimensions, ScrollView, ScrollViewComponent } from 'react-native';
+import { Image, StyleSheet, Dimensions, ScrollView, ScrollViewComponent, TextInput } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import MapView, { Heatmap, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import BlueMapStyles from '../mapStyles/mapBlue.json';
 
+import { SearchInput } from '../components/SearchInput'
 
 export default class TabOneScreen extends React.Component {
   
@@ -81,9 +82,8 @@ export default class TabOneScreen extends React.Component {
 
   render() {
     const { } = this.state.places[0];
-    const { region } = this.state;
-    
-    
+    const { region } = this.state;    
+
 
     return (
       
@@ -101,7 +101,8 @@ export default class TabOneScreen extends React.Component {
             
           
           { this.state.places.map(place => (
-              <Marker coordinate={{
+              <Marker
+              coordinate={{
                 latitude: place.latitude,
                 longitude: place.longitude,
               }} ref={mark => place.mark = mark} title={place.title} description={place.description} key={place.id}>
@@ -115,9 +116,9 @@ export default class TabOneScreen extends React.Component {
           ))}
 
         </MapView>
-
-        
-
+              
+        <SearchInput
+        />        
         <ScrollView
           style={styles.placesContainer}
           horizontal
@@ -170,7 +171,7 @@ export default class TabOneScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'flex-end',
   },
   placesContainer: {
