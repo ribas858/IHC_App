@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Dimensions, ScrollView, ScrollViewComponent } from 'react-native';
+import { Image, StyleSheet, Dimensions, ScrollView, ScrollViewComponent } from 'react-native';
 
 import { Text, View } from '../components/Themed';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Heatmap, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+
+import BlueMapStyles from '../mapStyles/mapBlue.json';
 
 
 export default class TabOneScreen extends React.Component {
@@ -75,6 +77,8 @@ export default class TabOneScreen extends React.Component {
 
   }
 
+  MapStyle = '../mapStyles/mapBlue.json'
+
   render() {
     const { } = this.state.places[0];
     const { region } = this.state;
@@ -91,23 +95,28 @@ export default class TabOneScreen extends React.Component {
             onMapReady={this._mapReady}
             showsUserLocation
             loadingEnabled
+            provider={PROVIDER_GOOGLE}
+            customMapStyle={ BlueMapStyles}
+            >
             
-          >
           
           { this.state.places.map(place => (
-              <MapView.Marker
-              ref={mark => place.mark = mark}
-              title={place.title}
-              description={place.description}
-              key={place.id}
-              coordinate={{
+              <Marker coordinate={{
                 latitude: place.latitude,
                 longitude: place.longitude,
-                }}
-              />
+              }} ref={mark => place.mark = mark} title={place.title} description={place.description} key={place.id}>
+
+              <Image style={styles.marcador} source={require('../assets/images/marker.png')}/>
+
+              </Marker>
+              
+              
+              
           ))}
 
         </MapView>
+
+        
 
         <ScrollView
           style={styles.placesContainer}
@@ -192,4 +201,8 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
+  marcador: {
+    width: 32,
+    height: 60,
+  }
 });
